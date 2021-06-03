@@ -2,6 +2,7 @@ const defaultABI = [{ "type": "constructor", "stateMutability": "nonpayable", "i
 window.routerQuickSwap = "0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff";
 window.routerZapper = "0x47b0eC1beA7d8EcC7cF70C3bF82c5f5d15a96b6D";
 window.routerSushiSwap = '0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506';
+window.routerPolycat = '0x8CFD1B9B7478E7B0422916B72d1DB6A9D513D734';
 const polygonChainID = '0x89';
 window.tokenContracts = {
     polygonNetwork: {
@@ -10,6 +11,7 @@ window.tokenContracts = {
         'QUICK': '0x831753DD7087CaC61aB5644b308642cc1c33Dc13',
         'USDC': '0x2791bca1f2de4661ed88a30c99a7a9449aa84174',
         'USDT': '0xc2132D05D31c914a87C6611C10748AEb04B58e8F',
-        'DAI': '0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063'
+        'DAI': '0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063',
+        'MATIC-FISH-LP': '0xcBF6f78981e63Ef813cb71852d72A060b583EECF'
     }
 }
