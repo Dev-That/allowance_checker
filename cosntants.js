@@ -2,10 +2,10 @@ const defaultABI = [{ "type": "constructor", "stateMutability": "nonpayable", "i
 window.routerQuickSwap = "0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff";
 window.routerZapper = "0x47b0eC1beA7d8EcC7cF70C3bF82c5f5d15a96b6D";
 const polygonChainID = '0x89';
-const tokenContracts = {
+window.tokenContracts = {
     polygonNetwork: {
         'WBTC': '0x1bfd67037b42cf73acf2047067bd4f2c47d9bfd6',
-        'WETH': '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
+        'ETH': '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
         'USDC': '0x2791bca1f2de4661ed88a30c99a7a9449aa84174'
     }
 }
