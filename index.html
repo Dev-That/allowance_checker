@@ -12,6 +12,8 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
         referrerpolicy="no-referrer" />
+    <title>Allowance Checker - Polygon</title>
+
     <style>
         :root {
             --bs-dark: #262626;
@@ -47,7 +49,15 @@
             color: #c2c2c2;
         }
     </style>
-    <title>Allowance Checker - Polygon</title>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-M16HNE7MP1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-M16HNE7MP1');
+    </script>
 </head>
 
 <body class="d-flex flex-column h-100 bg-dark">
@@ -92,7 +102,11 @@
 
         </div>
         <div class="d-flex justify-content-center">
-           <a href="https://twitter.com/TheAlexandru" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter-square" style="font-size: 20px;"></i></a><div style="width: 10px;"></div> <span class="justify-content-center text-muted">  <i class="fas fa-mug-hot" style="font-size: 20px; color:rgba(153, 72, 72, 0.466)"></i>  Buy me a coffee: 0x9DF3B01aeE76D0eDcC48873667f6F05B4F94A288 </span>
+            <a href="https://twitter.com/TheAlexandru" target="_blank" rel="noopener noreferrer"><i
+                    class="fab fa-twitter-square" style="font-size: 20px;"></i></a>
+            <div style="width: 10px;"></div> <span class="justify-content-center text-muted"> <i class="fas fa-mug-hot"
+                    style="font-size: 20px; color:rgba(153, 72, 72, 0.466)"></i> Buy me a coffee:
+                0x9DF3B01aeE76D0eDcC48873667f6F05B4F94A288 </span>
         </div>
 
     </footer>
@@ -109,7 +123,7 @@
         type="application/javascript"></script>
     <script src="./cosntants.js"></script>
     <script>
-        let connectedWallet=null,web3instance=null,connectedToChain="";const setConnectedChain=async()=>{connectedToChain=await window.ethereum.request({method:"eth_chainId"})},setWallet=e=>{connectedWallet=e,setConnectedChain()},connectMM=e=>{window.ethereum.request({method:"eth_requestAccounts"}).then(e=>{setWallet(e[0])}).catch(e=>{console.log("Canceled")})},initApp=async()=>{if(!("object"==typeof window.ethereum))return console.log("Metamask not installed");web3instance=await new Web3(window.ethereum),window.ethereum.on("accountsChanged",e=>{e.length<1?console.log("disconnected"):connectedWallet==e[0]&&console.log("already connected")});window.ethereum.isConnected();window.ethereum.on("connect",()=>{const e=window.ethereum.isConnected();null===window.ethereum.selectedAddress&&e?setTimeout(()=>{null===window.ethereum.selectedAddress?connectMM():setWallet(window.ethereum.selectedAddress)},1e3):connectMM()}),window.ethereum.on("chainChanged",e=>{connectedToChain=e})};$(document).ready(initApp);const initContract=e=>{if(web3instance){if(window[`initializedContract_${e}`])return window[`initializedContract_${e}`];{const n=new web3instance.eth.Contract(defaultABI,e);return window[`initializedContract_${e}`]=n,n}}},loading='<div class="spinner-grow spinner-grow-sm" role="status"></div>',isStillConnected=async()=>{const e=window.ethereum.isConnected()&&null!==window.ethereum.selectedAddress;await setConnectedChain();const n=connectedToChain===polygonChainID;return e||toastr.error("Wallet not connected"),n||toastr.warning("Wrong network"),e&&n},checkAllowance=async e=>{if(e.preventDefault(),!await isStillConnected())return;const n=$('input[name="checkContract"]').val(),t=connectedWallet,o=$('input[name="spender"]').val(),c=e.target.id;if(n.length<1||!web3instance.utils.isAddress(n))return toastr.error("Token Contract is empty or incorrect");if(t.length<1||!web3instance.utils.isAddress(t))return toastr.error("Owner Address is empty or incorrect");if(o.length<1||!web3instance.utils.isAddress(o))return toastr.error("Spender Address is empty or incorrect");$("#allowanceTotal").remove(),$(`#${c}`).html(loading),$("#checkAllowance").attr("disabled",!0),$("#revoke").attr("disabled",!0);const a=await initContract(n);if("checkAllowance"==c){try{await a.methods.symbol().call();const n=await a.methods.allowance(t,o).call();let c=0;if(n>0){let e=await web3instance.utils.fromWei(n);e>9999999&&(c="∞")}$("#allowance").append(`<span id="allowanceTotal">${c}</span>`)}catch(e){console.log(e),alert("Error")}$("#checkAllowance").html("Check Allowance")}else a.methods.approve(o,"0").send({from:t}).on("receipt",async e=>{toastr.success("Success!"),$("#revoke").html("Revoke")}).on("error",e=>{console.log("Unable to approve, error: ",e),$("#revoke").html("Revoke")});$("#checkAllowance").attr("disabled",!1),$("#revoke").attr("disabled",!1)},allowanceDropDown=e=>{$('input[name="spender"]').val(window[`router${e.target.id}`])};$("#checkAllowance").click(checkAllowance),$("#revoke").click(checkAllowance),$(".dropdown-item").click(allowanceDropDown);
+        let connectedWallet = null, web3instance = null, connectedToChain = ""; const setConnectedChain = async () => { connectedToChain = await window.ethereum.request({ method: "eth_chainId" }) }, setWallet = e => { connectedWallet = e, setConnectedChain() }, connectMM = e => { window.ethereum.request({ method: "eth_requestAccounts" }).then(e => { setWallet(e[0]) }).catch(e => { console.log("Canceled") }) }, initApp = async () => { if (!("object" == typeof window.ethereum)) return console.log("Metamask not installed"); web3instance = await new Web3(window.ethereum), window.ethereum.on("accountsChanged", e => { e.length < 1 ? console.log("disconnected") : connectedWallet == e[0] && console.log("already connected") }); window.ethereum.isConnected(); window.ethereum.on("connect", () => { const e = window.ethereum.isConnected(); null === window.ethereum.selectedAddress && e ? setTimeout(() => { null === window.ethereum.selectedAddress ? connectMM() : setWallet(window.ethereum.selectedAddress) }, 1e3) : connectMM() }), window.ethereum.on("chainChanged", e => { connectedToChain = e }) }; $(document).ready(initApp); const initContract = e => { if (web3instance) { if (window[`initializedContract_${e}`]) return window[`initializedContract_${e}`]; { const n = new web3instance.eth.Contract(defaultABI, e); return window[`initializedContract_${e}`] = n, n } } }, loading = '<div class="spinner-grow spinner-grow-sm" role="status"></div>', isStillConnected = async () => { const e = window.ethereum.isConnected() && null !== window.ethereum.selectedAddress; await setConnectedChain(); const n = connectedToChain === polygonChainID; return e || toastr.error("Wallet not connected"), n || toastr.warning("Wrong network"), e && n }, checkAllowance = async e => { if (e.preventDefault(), !await isStillConnected()) return; const n = $('input[name="checkContract"]').val(), t = connectedWallet, o = $('input[name="spender"]').val(), c = e.target.id; if (n.length < 1 || !web3instance.utils.isAddress(n)) return toastr.error("Token Contract is empty or incorrect"); if (t.length < 1 || !web3instance.utils.isAddress(t)) return toastr.error("Owner Address is empty or incorrect"); if (o.length < 1 || !web3instance.utils.isAddress(o)) return toastr.error("Spender Address is empty or incorrect"); $("#allowanceTotal").remove(), $(`#${c}`).html(loading), $("#checkAllowance").attr("disabled", !0), $("#revoke").attr("disabled", !0); const a = await initContract(n); if ("checkAllowance" == c) { try { await a.methods.symbol().call(); const n = await a.methods.allowance(t, o).call(); let c = 0; if (n > 0) { let e = await web3instance.utils.fromWei(n); e > 9999999 && (c = "∞") } $("#allowance").append(`<span id="allowanceTotal">${c}</span>`) } catch (e) { console.log(e), alert("Error") } $("#checkAllowance").html("Check Allowance") } else a.methods.approve(o, "0").send({ from: t }).on("receipt", async e => { toastr.success("Success!"), $("#revoke").html("Revoke") }).on("error", e => { console.log("Unable to approve, error: ", e), $("#revoke").html("Revoke") }); $("#checkAllowance").attr("disabled", !1), $("#revoke").attr("disabled", !1) }, allowanceDropDown = e => { $('input[name="spender"]').val(window[`router${e.target.id}`]) }; $("#checkAllowance").click(checkAllowance), $("#revoke").click(checkAllowance), $(".dropdown-item").click(allowanceDropDown);
     </script>
 </body>
 
