@@ -3,7 +3,6 @@ window.routerQuickSwap = "0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff";
 window.routerZapper = "0x47b0eC1beA7d8EcC7cF70C3bF82c5f5d15a96b6D";
 window.routerSushiSwap = '0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506';
 window.routerPolycat = '0x8CFD1B9B7478E7B0422916B72d1DB6A9D513D734';
-window.routerSupremeX = '0x92e4dda8e440754c7f97bd53a2f7c7cefafea2c4';
 const polygonChainID = '0x89';
 window.tokenContracts = {
     polygonNetwork: {
